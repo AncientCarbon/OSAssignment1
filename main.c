@@ -31,14 +31,14 @@ int main(){
 
     while (1) {                   /* repeat until done ....         */
         printf("Type something: ");
-        characters = getline(&buffer,&bufsize,stdin);
+        characters = getline(&buffer,&bufsize,stdin); // Read input from console
         printf("\nYou typed: %s",buffer);
         
-        if(strcmp(buffer,"exit\n")==0){
+        if(strcmp(buffer,"exit\n")==0){ // If input was "exit", end the program and close the shell
             break;
         }
         
-        readInput(buffer);
+        readInput(buffer); // If not "exit", read the input
         
         printf("\n");
         
@@ -48,11 +48,11 @@ int main(){
 }
 
 void readInput(char *buffer){
-    char* token = strtok(buffer, "|");
-    while (token!= NULL){
+    char* token = strtok(buffer, "|"); //split the input on "|"
+    while (token!= NULL){ // run loop on each segment split by ""
         printf ("readInput: %s\n",token);
-        execute(token);
-        token = strtok (NULL, "|");
+        execute(token); //execute current segment
+        token = strtok (NULL, "|"); // update to new segment
   }
 }
 
@@ -64,7 +64,7 @@ void execute(char *token){
     if(childPid == 0)  // fork succeeded 
     {   
        // Do something
-       childProcess(token);
+       childProcess(token); // run the segment in a child process
        exit(0); 
     }
     
@@ -93,5 +93,5 @@ void execute(char *token){
 
 void childProcess(char *token){
     printf("childProcess running execvp %s\n", token);
-    sleep(2);
+    sleep(2); //pointless code meant to simulate something goin on 
 }
